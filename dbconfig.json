@@ -3,5 +3,6 @@
     "MYSQL_USER": "root",
     "MYSQL_PASSWORD": "",
     "MYSQL_DB": "proyecto_python",
-    "MYSQL_PORT": 3306
+    "MYSQL_PORT": 3306,
+    "MYSQL_CURSORCLASS": "DictCursor"
 }
