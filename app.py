@@ -1,8 +1,16 @@
+import json
 from flask import Flask
 from flask_mysqldb import MySQL
 
 app = Flask(__name__)
-mysql = MySQL()
+
+with open('./dbconfig.json') as f:
+  dbconfig = json.load(f)
+
+for key, value in dbconfig.items():
+    app.config[key] = value
+
+mysql = MySQL(app)
 
 @app.route('/')
 def index():
