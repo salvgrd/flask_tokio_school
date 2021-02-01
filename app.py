@@ -1,5 +1,5 @@
 import json
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_mysqldb import MySQL
 
 app = Flask(__name__)
@@ -23,6 +23,21 @@ def get_products():
     c.execute('SELECT * FROM products')
     products = c.fetchall()
     return jsonify(products)
+
+@app.route('/products/add', methods = ['POST'])
+def add_product():
+    connection = mysql.connection
+    query = 'INSERT INTO products VALUES (%s,%s,%s,%s,%s,%s,%s,%s)'
+    c = connection.cursor()
+
+    data = [ None ]
+    for key in request.form:
+        data.append(request.form[key])
+
+    c.execute(query, data)
+    connection.commit()
+
+    return jsonify({ "message": f"Product '{request.form['name']}' created successfully" })
 
 @app.route('/providers')
 def get_providers():
