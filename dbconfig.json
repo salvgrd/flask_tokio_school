@@ -1,8 +1,7 @@
 {
-    "MYSQL_HOST": "localhost",
-    "MYSQL_USER": "root",
-    "MYSQL_PASSWORD": "",
-    "MYSQL_DB": "proyecto_python",
-    "MYSQL_PORT": 3306,
-    "MYSQL_CURSORCLASS": "DictCursor"
+    "HOST": "localhost",
+    "USERNAME": "root",
+    "PASSWORD": "",
+    "DATABASE": "proyecto_python",
+    "PORT": "3306"
 }
