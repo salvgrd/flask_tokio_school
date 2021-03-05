@@ -1,7 +1,9 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 from models import db, dbURI, Products, Users, Sales
 
 app = Flask(__name__)
+CORS(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = dbURI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -17,6 +19,12 @@ def index():
 def test():
     placed_sale = Sales.place(request.get_json())
     return placed_sale
+
+@app.route('/users/authenticate', methods = ['POST'])
+def log_in():
+    response = 'OK!' if Users.log_in(request.get_json()) else 'KO!'
+    status = 200 if response else 401
+    return jsonify(response), status
 
 # @app.route('/products')
 # def get_products():

@@ -74,6 +74,10 @@ class Users(db.Model):
     def get_by_id(id):
         return Users.query.get(id)
 
+    @staticmethod
+    def log_in(user):
+        return Users.query.filter_by(access_email = user['access_email'], password = user['password']).first()
+
 class Sales(db.Model):
 
     __tablename__ = 'sales'
