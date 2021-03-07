@@ -1,15 +1,8 @@
+from core import app
 import json, datetime
 from flask_sqlalchemy import SQLAlchemy
 
-dbURI = 'mysql://USERNAME:PASSWORD@HOST:PORT/DATABASE'
-
-with open('./dbconfig.json') as f:
-  dbconfig = json.load(f)
-
-for key, value in dbconfig.items():
-    dbURI = dbURI.replace(key, value)
-
-db = SQLAlchemy()
+db = SQLAlchemy(app)
 
 sales_products = db.Table('sales_products',
     db.Column('product_id', db.Integer, db.ForeignKey('products.product_id')),
