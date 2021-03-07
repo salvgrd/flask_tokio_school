@@ -26,6 +26,14 @@ def log_in():
     status = 200 if response else 401
     return jsonify(response), status
 
+@app.route('/users/register', methods = ['POST'])
+def register():
+    # response = 'OK!' if Users.register(request.get_json()) else 'KO!'
+    response = Users.register(request.get_json())
+    print(response)
+    status = 200
+    return jsonify(response), status
+
 # @app.route('/products')
 # def get_products():
 #     # Add pagination

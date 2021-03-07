@@ -78,6 +78,12 @@ class Users(db.Model):
     def log_in(user):
         return Users.query.filter_by(access_email = user['access_email'], password = user['password']).first()
 
+    @staticmethod
+    def register(data):
+        new_user = Users(name = data['name'], access_email = data['access_email'], password = data['password'], type = data['type'])
+        db.session.add(new_user)
+        return db.session.commit()
+
 class Sales(db.Model):
 
     __tablename__ = 'sales'
