@@ -1,6 +1,6 @@
 from core import app
 from flask import jsonify, request
-from models import Users, Sales
+from models import Users, Sales, Products, products_schema
 
 @app.route('/')
 def index():
@@ -22,6 +22,12 @@ def log_in():
 def register():
     # response = 'OK!' if Users.register(request.get_json()) else 'KO!'
     response = Users.register(request.get_json())
-    print(response)
     status = 200
     return jsonify(response), status
+
+@app.route('/products')
+def get_all():
+    data = Products.get_all()
+    response = jsonify(products_schema.dump(data))
+    status = 200 if response else 401
+    return response, status

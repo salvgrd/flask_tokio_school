@@ -1,14 +1,22 @@
 from core import app
-import json, datetime
+import datetime
 from flask_sqlalchemy import SQLAlchemy
+from flask_marshmallow import Marshmallow
 
 db = SQLAlchemy(app)
+ma = Marshmallow(app)
 
 sales_products = db.Table('sales_products',
     db.Column('product_id', db.Integer, db.ForeignKey('products.product_id')),
     db.Column('quantity', db.Integer),
     db.Column('sale_id', db.Integer, db.ForeignKey('sales.sale_id'))
 )
+
+class ProductsSchema(ma.Schema):
+    class Meta:
+        fields = ('product_id', 'name', 'pvp', 'cost', 'stock', 'max_stock', 'description', 'provider_id')
+
+products_schema = ProductsSchema(many=True)
 
 class Products(db.Model):
     
@@ -29,6 +37,10 @@ class Products(db.Model):
     @staticmethod
     def get_by_id(id):
         return Products.query.get(id)
+
+    @staticmethod
+    def get_all():
+        return Products.query.all()
 
 class Providers(db.Model):
 
