@@ -4,7 +4,6 @@ import json
 basedir = os.getcwd()
 
 dbURI = 'mysql://USERNAME:PASSWORD@HOST:PORT/DATABASE'
-print(basedir)
 
 with open(f"{basedir}\dbconfig.json") as f:
   dbconfig = json.load(f)
@@ -16,7 +15,6 @@ class Config:
     SECRET_KEY = os.getenv('SECRET_KEY', 'my_precious_secret_key')
     DEBUG = False
 
-# mysql://USERNAME:PASSWORD@HOST:PORT/DATABASE
 class DevelopmentConfig(Config):
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = dbURI
