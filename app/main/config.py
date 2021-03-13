@@ -1,6 +1,16 @@
 import os
+import json
 
-basedir = os.path.abspath(os.path.dirname(__file__))
+basedir = os.getcwd()
+
+dbURI = 'mysql://USERNAME:PASSWORD@HOST:PORT/DATABASE'
+print(basedir)
+
+with open(f"{basedir}\dbconfig.json") as f:
+  dbconfig = json.load(f)
+
+for key, value in dbconfig.items():
+  dbURI = dbURI.replace(key, value)
 
 class Config:
     SECRET_KEY = os.getenv('SECRET_KEY', 'my_precious_secret_key')
@@ -9,14 +19,14 @@ class Config:
 # mysql://USERNAME:PASSWORD@HOST:PORT/DATABASE
 class DevelopmentConfig(Config):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'mysql://' + os.path.join(basedir, 'flask_boilerplate_main.db')
+    SQLALCHEMY_DATABASE_URI = dbURI
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
 class TestingConfig(Config):
     DEBUG = True
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = 'mysql://' + os.path.join(basedir, 'flask_boilerplate_test.db')
+    SQLALCHEMY_DATABASE_URI = dbURI
     PRESERVE_CONTEXT_ON_EXCEPTION = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 

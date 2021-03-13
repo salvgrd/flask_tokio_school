@@ -2,10 +2,12 @@ import uuid
 import datetime
 
 from app.main import db
-from app.main.models import Users
+from app.main.models import models
+
+Users = models.Users # to refactor
 
 def register_new_user(data):
-    user = user = User.query.filter_by(email=data['access_email']).first()
+    user = user = Users.query.filter_by(email=data['access_email']).first()
     if not user:
         new_user = Users(
             name=data['name'], 
@@ -28,8 +30,8 @@ def register_new_user(data):
 def get_all_users(data):
     return Users.query.all()
 
-def get_user_by_email(access_email):
-    return User.query.filter_by(access_email=access_email).first()
+def get_user_by_email(name):
+    return Users.query.filter_by(name=name).first()
 
 def save_changes(data):
     db.session.add(data)

@@ -1,4 +1,4 @@
-from .. import flask_bcrypt, flask_sqlalchemy, db
+from .. import db
 import json, datetime
 
 sales_products = db.Table('sales_products',
