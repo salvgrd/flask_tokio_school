@@ -1,8 +1,5 @@
-from core import app
+from .. import flask_bcrypt, flask_sqlalchemy, db
 import json, datetime
-from flask_sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy(app)
 
 sales_products = db.Table('sales_products',
     db.Column('product_id', db.Integer, db.ForeignKey('products.product_id')),
